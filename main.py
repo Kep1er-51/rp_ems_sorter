@@ -182,6 +182,9 @@ def main():
 
     initialize_directories(base_dir)
 
+    distribute_screenshots(base_dir, last_promotion_time)
+    update_screenshot_relevance(base_dir, last_promotion_time)
+
     for filename in os.listdir(base_dir):
         file_path = os.path.join(base_dir, filename)
         if os.path.isfile(file_path) and file_path.lower().endswith(('.png', '.jpg', '.jpeg')):
@@ -190,9 +193,6 @@ def main():
             if category:
                 category_path = os.path.join(base_dir, category)
                 move_to_subcategory(category_path, file_path, filename, last_promotion_time)
-
-    distribute_screenshots(base_dir, last_promotion_time)
-    update_screenshot_relevance(base_dir, last_promotion_time)
 
 if __name__ == "__main__":
     main()

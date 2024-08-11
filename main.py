@@ -174,7 +174,7 @@ def main():
     get_valid_input_2 = get_valid_input(f"Текущая дата последнего повышения: {last_promotion_time.strftime('%Y-%m-%d %H:%M')}. Хотите обновить? (y/n/1): ", lambda x: x.lower() in ['y', 'n', '1'])
     if get_valid_input_2 == 'y':
         last_promotion_time_str = get_valid_input("Введите новую дату последнего повышения (гггг-мм-дд чч:мм): ", lambda x: bool(datetime.strptime(x, '%Y-%m-%d %H:%M')))
-        last_promotion_time = datetime.strptime(last_promotion_time_str, '%Y-%м-%d %H:%M')
+        last_promotion_time = datetime.strptime(last_promotion_time_str, '%Y-%m-%d %H:%M')
     elif get_valid_input_2 == '1':
         path_visibility = True
 

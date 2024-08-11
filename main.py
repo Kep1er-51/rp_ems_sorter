@@ -16,7 +16,7 @@ config_file = 'config.ini'
 
 # Получение дат
 now = datetime.now()
-start_of_week = (now - timedelta(days=now.weekday())).replace(hour=0, minute = 0, second=0, microsecond=0)
+start_of_week = (now - timedelta(days=now.weekday())).replace(hour=0, minute=0, second=0, microsecond=0)
 
 # Укажите путь к tesseract.exe
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -174,9 +174,14 @@ def main():
     get_valid_input_2 = get_valid_input(f"Текущая дата последнего повышения: {last_promotion_time.strftime('%Y-%m-%d %H:%M')}. Хотите обновить? (y/n/1): ", lambda x: x.lower() in ['y', 'n', '1'])
     if get_valid_input_2 == 'y':
         last_promotion_time_str = get_valid_input("Введите новую дату последнего повышения (гггг-мм-дд чч:мм): ", lambda x: bool(datetime.strptime(x, '%Y-%m-%d %H:%M')))
-        last_promotion_time = datetime.strptime(last_promotion_time_str, '%Y-%m-%d %H:%M')
+        last_promotion_time = datetime.strptime(last_promotion_time_str, '%Y-%м-%d %H:%M')
     elif get_valid_input_2 == '1':
         path_visibility = True
+
+    #вопрос для проверки, является ли пользователь сотрудником SS или PRMD
+    get_valid_input_3 = get_valid_input("Вы являетесь сотрудником SS или PRMD (если вы являетесь 10 рангом или выше, в любом случае ответьте 'n')? (y/n): ", lambda x: x.lower() in ['y', 'n'])
+    if get_valid_input_3 == 'n':
+        last_promotion_time = now + timedelta(days=1)
 
     write_config(base_dir, last_promotion_time, path_visibility)
 
